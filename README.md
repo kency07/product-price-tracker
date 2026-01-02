@@ -1,4 +1,4 @@
-## Product Price Tracker
+# Product Price Tracker
 
 Product Price Tracker is a Python-based tool designed to scrape, track, and monitor product prices across e-commerce websites. It helps businesses and individuals monitor price changes, discounts, and trends over time in an automated and reliable way.
 This project is currently under development.
@@ -54,6 +54,7 @@ This project is currently under development.
 ----
 
 ## Planned Project Structure
+```
 product-price-tracker/
 │
 ├── src/
@@ -61,13 +62,13 @@ product-price-tracker/
 │   ├── tracker.py        # Compare new vs old prices
 │   └── utils.py          # Helper functions (clean price, delay, retries)
 │
-├── product_links.py       # List of product URLs
+├── product_links.py      # List of product URLs
 ├── main.py               # Entry point: loops through URLs and runs tracker
 ├── prices.csv            # Stores historical prices (created automatically)
 ├── requirements.txt
 └── README.md
 
-
+```
 ----
 ## Setup (Coming Soon)
 
