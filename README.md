@@ -1,86 +1,244 @@
 # Product Price Tracker
 
-Product Price Tracker is a Python-based tool designed to scrape, track, and monitor product prices across e-commerce websites. It helps businesses and individuals monitor price changes, discounts, and trends over time in an automated and reliable way.
-This project is currently under development.
+A Python-based Product Price Tracker that scrapes product pages, stores historical prices in a CSV file, and detects price changes (increase, decrease, or no change) over time.
+
+## This project is implemented as a modular, script-based tracker and is currently demonstrated using the demo website BooksToScrape.
+
+## Features (Implemented)
+
+- Scrape current product prices from web pages
+
+- Track prices across multiple runs
+
+- Store price history in a CSV file
+
+- Detect price changes:
+
+  - First scrape
+  - Price increase
+  - Price decrease
+  - No change
+
+- Built-in random delay to reduce aggressive requests
 
 ---
 
-## Project Objectives
+## Example Use Case
 
-- Scrape product prices from e-commerce websites
+This tool can be used to:
 
-- Track and store historical price data
+- Track product prices for e-commerce monitoring
+- Detect discounts and price drops
+- Automate price tracking for research or analysis
 
-- Detect price changes over time
+## How It Works
 
-- Provide insights into price trends
-----
+- Product URLs are defined in product_links.py
 
-## Planned Features
+- main.py loops through each URL
 
-- Web scraping using Python
+- scraper.py fetches the product page and extracts the price
 
-- Support for multiple e-commerce websites
+- tracker.py:
 
-- Price history tracking
+- Reads the last stored price from prices.csv
+- Compares it with the newly scraped price
+- Updates the CSV file
 
-- Price change detection
+- Results are printed to the console
 
-- (Optional) Price drop alerts
-
-- (Optional) Data visualization
-----
+---
 
 ## Tech Stack
 
-- Language: Python
+- **Language**: Python
 
-- Web Scraping: BeautifulSoup, Requests (Playwright/Selenium if needed)
+- **Web Scraping**: BeautifulSoup, Requests (Playwright/Selenium if needed)
 
-- Data Storage: CSV / SQLite
+- **Data Storage**: CSV / SQLite
 
-- Environment: Virtualenv
+- **Environment**: Virtualenv
 
-- Version Control: Git & GitHub
-----
+- **Version Control**: Git & GitHub
 
-## Project Status
+---
 
-- Project planning completed
+## Project Structure
 
-- Coding not started yet
-
-- Initial price scraper implementation
-----
-
-## Planned Project Structure
 ```
 product-price-tracker/
 │
 ├── src/
-│   ├── scraper.py        # Scrape product pages for current price
-│   ├── tracker.py        # Compare new vs old prices
+│   ├── scraper.py        # Core logic for fetching and parsing HTML content
+│   ├── tracker.py        # Logic for comparing prices and updating the CSV database
 │   └── utils.py          # Helper functions (clean price, delay, retries)
 │
 ├── product_links.py      # List of product URLs
 ├── main.py               # Entry point: loops through URLs and runs tracker
 ├── prices.csv            # Stores historical prices (created automatically)
-├── requirements.txt
+├── requirements.txt      # Project dependencies
 └── README.md
 
 ```
-----
-## Setup (Coming Soon)
 
-Setup instructions will be added once development begins.
+---
 
-----
+## File Overview
+
+### scraper.py
+
+- Uses requests and BeautifulSoup
+
+- Extracts product price using a CSS selector
+
+- Selector is site-specific and can be changed per website
+
+- Adds a random delay after each successful scrape
+
+---
+
+### tracker.py
+
+- Manages CSV-based price storage
+
+- Columns used:
+
+  - product_url
+  - last_price
+  - price
+
+- Compares old vs new prices and returns status + difference
+
+---
+
+### utils.py
+
+- clean_price() – Converts price strings into float values
+
+- delay() – Adds a random delay between requests to reduce server load
+
+---
+
+### product_links.py
+
+- Contains a Python list of product URLs to track
+
+---
+
+### main.py
+
+- Orchestrates the entire flow
+
+- Calls scraper, tracker, and comparison logic
+
+- Prints readable output to the console
+
+---
+
+## Setup Instructions
+
+- Clone the repository
+
+- Create and activate a virtual environment
+
+- Install the required Python libraries:
+
+```
+pip install -r requirements.txt
+```
+
+- Your requirements.txt should include:
+
+```
+beautifulsoup4
+requests
+pandas
+```
+
+## Usage
+
+- Add the product URLs you want to track in product_links.py:
+
+```
+products = [
+    "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+    "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+]
+```
+
+- Run the tracker:
+
+```
+python main.py
+```
+
+- On first run, prices.csv will be created with current prices.
+
+- On subsequent runs, it will fill last_price and compare price changes.
+
+---
+
+### Output
+
+- The CSV will have this structure:
+
+```
+product_url,last_price,price
+https://example.com/p1,,49.99           # First run
+https://example.com/p1,49.99,47.50      # Next run after price change
+
+```
+
+- last_price: previous run value
+
+- price: current run value
+
+---
+
+## Current Limitations
+
+- Price selector must be manually adjusted per website
+
+- Uses CSV instead of a database
+
+- No alert system (email / Telegram) yet
+
+---
+
+## Planned Improvements
+
+- Config-based selectors for multiple websites
+
+- Logging instead of print statements
+
+- Timestamped price history
+
+- Email / Telegram alerts
+
+- Optional SQLite database support
+
+- Basic price trend visualization
+
+---
+
+## Project Status
+
+- Core scraping logic implemented
+
+- CSV-based price tracking working
+
+- Tested on BooksToScrape demo website
+
+- Actively improving and refactoring
+
+---
 
 ## License
 
 MIT License
 
 ---
+
 ## Disclaimer
 
 This project is intended for responsible and ethical web scraping. Users are responsible for ensuring compliance with the terms of service of the websites being scraped.
