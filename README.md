@@ -30,7 +30,7 @@ This tool can be used to:
 - Track product prices for e-commerce monitoring
 - Detect discounts and price drops
 - Automate price tracking for research or analysis
-
+---
 ## How It Works
 
 - Product URLs are defined in product_links.py
@@ -41,9 +41,9 @@ This tool can be used to:
 
 - tracker.py:
 
-- Reads the last stored price from prices.csv
-- Compares it with the newly scraped price
-- Updates the CSV file
+  - Reads the last stored price from prices.csv
+  - Compares it with the newly scraped price
+  - Updates the CSV file
 
 - Results are printed to the console
 
@@ -51,15 +51,15 @@ This tool can be used to:
 
 ## Tech Stack
 
-- **Language**: Python
+- **Language:** Python
 
-- **Web Scraping**: BeautifulSoup, Requests (Playwright/Selenium if needed)
+- **Web Scraping:** BeautifulSoup, Requests (Playwright/Selenium if needed)
 
-- **Data Storage**: CSV / SQLite
+- **Data Storage:** CSV / SQLite
 
-- **Environment**: Virtualenv
+- **Environment:** Virtualenv
 
-- **Version Control**: Git & GitHub
+- **Version Control:** Git & GitHub
 
 ---
 
@@ -77,7 +77,7 @@ product-price-tracker/
 ├── main.py               # Entry point: loops through URLs and runs tracker
 ├── prices.csv            # Stores historical prices (created automatically)
 ├── requirements.txt      # Project dependencies
-└── README.md
+└── README.md             # Project documentation
 
 ```
 
@@ -137,29 +137,39 @@ product-price-tracker/
 
 ## Setup Instructions
 
-- Clone the repository
+**Clone the repository:**
 
-- Create and activate a virtual environment
-
-- Install the required Python libraries:
-
+```bash
+  git clone  https://github.com/kency07/product-price-tracker.git
+  cd  product-price-tracker
 ```
+**Create and activate a virtual:**
+```bash 
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+```
+**Install the required Python libraries:**
+
+```bash
 pip install -r requirements.txt
 ```
 
-- Your requirements.txt should include:
+**Your requirements.txt should include:**
 
 ```
 beautifulsoup4
 requests
 pandas
 ```
-
+---
 ## Usage
 
 - Add the product URLs you want to track in product_links.py:
 
-```
+```python
 products = [
     "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
     "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
@@ -168,7 +178,7 @@ products = [
 
 - Run the tracker:
 
-```
+```bash
 python main.py
 ```
 
@@ -235,7 +245,7 @@ https://example.com/p1,49.99,47.50      # Next run after price change
 
 ## License
 
-MIT License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
